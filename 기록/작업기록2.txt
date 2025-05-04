@@ -1,0 +1,52 @@
+2. 라우터 분리 (기본 게시판용)
+
+simple-board-app/
+├── server.js
+└── routes/
+    └── posts.js
+
+posts.js 
+// routes/posts.js
+const express = require('express');
+const router = express.Router();
+
+// 예시: 게시글 목록 가져오기
+router.get('/', (req, res) => {
+  res.send('📄 게시글 목록을 불러왔습니다.');
+});
+
+// 예시: 게시글 하나 생성하기
+router.post('/', (req, res) => {
+  res.send('✅ 게시글이 등록되었습니다.');
+});
+
+module.exports = router;
+
+server.js 수정
+// server.js
+const express = require('express');
+const app = express();
+const postsRouter = require('./routes/posts');
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+// 라우터 등록
+app.use('/posts', postsRouter);
+
+app.get('/', (req, res) => {
+  res.send('📌 게시판 서버 메인 페이지입니다!');
+});
+
+app.listen(PORT, () => {
+  console.log(`✅ 서버 실행 중: http://localhost:${PORT}`);
+});
+
+get과 post에 따라 다른 결과가 나옴. 
+post 요청 테스트를 위해 postman 설치
+
+요청	주소	결과
+GET	http://localhost:3000/posts	📄 게시글 목록
+POST	http://localhost:3000/posts	✅ 게시글 등록
+
+

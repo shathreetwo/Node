@@ -1,0 +1,112 @@
+**Spring(Java)**과 **Node.js(JavaScript)**는 모두 백엔드 개발에 많이 사용되지만, 철학과 생태계, 개발 방식이 많이 다릅니다.
+
+
+1. 언어 차이
+항목	Spring	Node.js
+언어	Java (정적 타입, 객체지향 중심)	JavaScript (동적 타입, 이벤트 기반)
+실행 환경	JVM(Java Virtual Machine)	V8 JavaScript 엔진 (크롬 기반)
+
+Spring은 무겁지만 안정적이고 정교한 언어인 Java를 사용
+
+Node.js는 유연하고 빠르게 만들기 좋은 JavaScript 기반
+
+ 2. 프레임워크 구조
+항목	Spring Boot	Node.js (Express 기준)
+구조	복잡하고 계층화 (OOP 중심)	심플하고 자유로운 구조 (함수형 중심)
+개발 방식	설정이 많고 명시적	코드 중심, 설정 간소화
+빌드	Gradle, Maven 등 필요	npm 기반으로 간단함
+
+3. 처리 방식
+항목	Spring	Node.js
+동시 처리	스레드 기반 (멀티스레드)	비동기 기반 (싱글스레드 + 이벤트루프)
+성능	안정적, 고부하에 강함	빠르고 가볍지만 CPU 연산에는 불리
+
+Spring은 대규모 트래픽, 복잡한 비즈니스에 적합
+
+Node.js는 실시간 처리, API 서버, 빠른 개발에 유리
+
+ 4. 생태계 / 사용 사례
+항목	Spring	Node.js
+주 사용처	대기업, 금융, B2B, 안정성이 중요한 시스템	스타트업, 실시간 서비스, 빠른 MVP
+예시	배민 서버, 네이버 일부 API, 정부 서비스 등	쿠팡 FE 일부, 당근마켓 채팅, Slack 등
+
+ 5. 개발 속도 / 난이도
+항목	Spring	Node.js
+배우기	복잡한 개념 많음 (DI, AOP 등)	배우기 쉬움 (Express가 간단함)
+개발 속도	상대적으로 느림	빠르게 MVP 제작 가능
+
+ 요약하면:
+✅ Spring: 구조적이고, 대규모 시스템에 강한 "정석 백엔드"
+✅ Node.js: 가볍고 빠른 개발이 강점인 "실용 백엔드"
+
+-----
+
+**자바(Java)**와 **자바스크립트(JavaScript)**는 이름은 비슷하지만, 완전히 다른 언어입니다.
+ 자바(Java) vs 자바스크립트(JavaScript) 핵심 비교표
+항목	Java	JavaScript
+개발 용도	백엔드, 앱, 데스크탑, 서버	웹 프론트엔드, 백엔드(Node.js), 앱
+실행 환경	JVM(Java Virtual Machine)	브라우저, Node.js
+타입	정적 타입 (컴파일 시 타입 고정)	동적 타입 (런타임에 타입 결정)
+구조	클래스 기반, 객체지향(OOP) 중심	함수 기반, 유연한 OOP 지원
+컴파일	컴파일 필요 (.java → .class)	인터프리터 방식 (브라우저/Node.js가 바로 실행)
+속도	빠르고 안정적 (JVM 최적화)	빠르지만 CPU 계산은 느릴 수 있음
+작성법	코드 길고 엄격함	짧고 유연함, 문법 자유로움
+대표적 사용 예	안드로이드 앱, 은행 시스템, 대규모 서버	웹 프론트, 실시간 웹앱, 빠른 백엔드 서버
+
+예시 코드 비교
+Java
+
+java
+
+public class Hello {
+  public static void main(String[] args) {
+    System.out.println("Hello, Java!");
+  }
+}
+JavaScript
+
+javascript
+
+console.log("Hello, JavaScript!");
+Java는 구조가 명확하고 엄격
+
+JavaScript는 짧고 빠르게 작성 가능
+
+어떤 상황에 어떤 언어를?
+상황	추천 언어
+금융, 공공기관, 대규모 시스템	Java
+웹사이트, 스타트업 API, 프론트와 백엔드 연결	JavaScript (Node.js)
+빠른 프로토타이핑, 프론트엔드 UI 구성	JavaScript
+
+요약 한 줄
+Java는 견고하고 정형화된 언어,
+JavaScript는 유연하고 빠른 웹 중심 언어입니다.
+
+-----
+
+기본 서버가 준비되었으니, 다음과 같은 순서로 진행해보면 좋아요:
+
+1. 라우터 분리 – /posts, /users 같은 경로 나누기
+
+2. MongoDB 연결 – mongoose 사용해서 데이터베이스 연결
+
+3. 게시글 작성/조회 API 만들기
+
+4. 프론트엔드와 연동 – HTML 또는 React와 연결
+
+
+라우터(Router)란?
+라우터는 웹 서버에서
+"어떤 주소(경로)로 요청이 오면 어떤 코드를 실행할지 정하는 것"입니다.
+
+예를 들어 이 코드:
+
+js
+app.get('/posts', (req, res) => {
+  res.send('게시글 목록');
+});
+→ 브라우저가 /posts 주소로 GET 요청을 보내면,
+→ 해당 코드가 실행되어 게시글 목록을 보여줍니다.
+
+-----
+
