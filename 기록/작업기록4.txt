@@ -1,0 +1,12 @@
+4. 프론트엔드와 연동 – HTML 또는 React와 연결
+HTML + Vanilla JS로 간단한 프론트 구성하기
+
+
+simple-board-app 폴더 안에 public 폴더를 만들고 그 안에 index.html 파일을 생성
+
+Express에서 정적 파일 서비스 설정
+server.js에 아래 한 줄을 추가
+// server.js
+app.use(express.static('public'));
+(localhost:3000 접속 시 public/index.html이 자동으로 열립니다.)
+

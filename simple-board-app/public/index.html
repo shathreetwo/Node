@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>📋 간단 게시판</title>
+    <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 10px;
+    }
+    input, textarea {
+      width: 100%;
+      margin: 5px 0;
+      padding: 8px;
+      font-size: 1rem;
+    }
+    button {
+      margin: 5px 2px;
+      padding: 8px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+<h1>📋 간단 게시판</h1>
+
+<form id="postForm">
+    <input type="text" id="title" placeholder="제목" required>
+    <textarea id="content" placeholder="내용" rows="4" required></textarea>
+    <input type="text" id="author" placeholder="작성자 (선택)">
+    <button type="submit">게시글 등록</button>
+</form>
+
+<hr>
+
+<div id="postsContainer">
+    <!-- 게시글 리스트가 여기에 출력됩니다 -->
+</div>
+
+<script>
+    const postForm = document.getElementById('postForm');
+    const postsContainer = document.getElementById('postsContainer');
+
+    postForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const title = document.getElementById('title').value;
+      const content = document.getElementById('content').value;
+      const author = document.getElementById('author').value || '익명';
+
+      const res = await fetch('/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, content, author })
+      });
+
+      if (res.ok) {
+        alert('✅ 게시글이 등록되었습니다!');
+        postForm.reset();
+        loadPosts();
+      } else {
+        alert('❌ 등록 실패');
+      }
+    });
+
+    async function loadPosts() {
+      const res = await fetch('/posts');
+      const posts = await res.json();
+
+      postsContainer.innerHTML = posts.map(p => `
+        <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+          <h3>${p.title}</h3>
+          <p>${p.content}</p>
+          <small>✍️ ${p.author} | 🕒 ${new Date(p.createdAt).toLocaleString()}</small><br>
+          <button onclick="deletePost('${p._id}')">🗑️ 삭제</button>
+          <button onclick="editPost('${p._id}', '${p.title}', '${p.content}', '${p.author}')">✏️ 수정</button>
+        </div>
+      `).join('');
+    }
+
+    async function deletePost(id) {
+      if (!confirm('정말 삭제하시겠습니까?')) return;
+      const res = await fetch(`/posts/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        alert('🗑️ 삭제 완료');
+        loadPosts();
+      } else {
+        alert('❌ 삭제 실패');
+      }
+    }
+
+    function editPost(id, title, content, author) {
+      const newTitle = prompt('제목 수정:', title);
+      const newContent = prompt('내용 수정:', content);
+      const newAuthor = prompt('작성자 수정:', author);
+
+      if (!newTitle || !newContent) {
+        alert('제목과 내용은 필수입니다.');
+        return;
+      }
+
+      fetch(`/posts/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: newTitle, content: newContent, author: newAuthor || '익명' })
+      })
+      .then(res => {
+        if (res.ok) {
+          alert('✏️ 수정 완료');
+          loadPosts();
+        } else {
+          alert('❌ 수정 실패');
+        }
+      });
+    }
+
+    // 처음 실행 시 게시글 불러오기
+    loadPosts();
+  </script>
+</body>
+</html>
